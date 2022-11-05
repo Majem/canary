@@ -3010,12 +3010,13 @@ int PlayerFunctions::luaPlayerOpenMarket(lua_State* L) {
 // Kos- OTS
 int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
     // player:isVip()
+    SPDLOG_INFO("VIP CHECK");
     Player* player = getUserdata<Player>(L, 1);
     if (player) {
         bool vipIsActive = player->vipDays > 0;
-        SPDLOG_ERROR("{} - Liczba dni vip", player->vipDays);
+        SPDLOG_INFO("{} - Liczba dni vip", player->vipDays);
         if(vipIsActive) {
-            SPDLOG_ERROR("Aktywny");
+            SPDLOG_INFO("Aktywny");
         }
         pushBoolean(L, vipIsActive);
     } else {
