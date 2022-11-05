@@ -3012,7 +3012,8 @@ int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
     // player:isVip()
     Player* player = getUserdata<Player>(L, 1);
     if (player) {
-        pushBoolean(L, true);
+        bool vipIsActive = player->vipDays > 0;
+        pushBoolean(L, vipIsActive);
     } else {
         lua_pushnil(L);
     }
