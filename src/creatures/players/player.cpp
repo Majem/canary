@@ -4944,6 +4944,17 @@ void Player::setPremiumDays(int32_t v)
 	sendBasicData();
 }
 
+bool Player::isVip() const
+{
+    return vipDays > 0;
+}
+
+void Player::setVipDays(int32_t v)
+{
+    vipDays = v;
+    sendBasicData();
+}
+
 void Player::setTibiaCoins(int32_t v)
 {
 	coinBalance = v;

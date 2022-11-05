@@ -210,6 +210,7 @@ class PlayerFunctions final : LuaScriptInterface {
 			registerMethod(L, "Player", "getFamiliarLooktype", PlayerFunctions::luaPlayerGetFamiliarLooktype);
 
 			registerMethod(L, "Player", "getPremiumDays", PlayerFunctions::luaPlayerGetPremiumDays);
+            registerMethod(L, "Player", "getVipDays", PlayerFunctions::luaPlayerIsVip);
 			registerMethod(L, "Player", "addPremiumDays", PlayerFunctions::luaPlayerAddPremiumDays);
 			registerMethod(L, "Player", "removePremiumDays", PlayerFunctions::luaPlayerRemovePremiumDays);
 
@@ -463,6 +464,7 @@ class PlayerFunctions final : LuaScriptInterface {
 		static int luaPlayerGetFamiliarLooktype(lua_State* L);
 
 		static int luaPlayerGetPremiumDays(lua_State* L);
+		static int luaPlayerIsVip(lua_State* L);
 		static int luaPlayerAddPremiumDays(lua_State* L);
 		static int luaPlayerRemovePremiumDays(lua_State* L);
 

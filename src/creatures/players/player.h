@@ -367,7 +367,7 @@ class Player final : public Creature, public Cylinder
 		uint8_t getBlessingCount(uint8_t index) const {
 			return blessings[index - 1];
 		}
-		std::string getBlessingsName() const; 
+		std::string getBlessingsName() const;
 
 		bool isOffline() const {
 			return (getID() == 0);
@@ -495,6 +495,9 @@ class Player final : public Creature, public Cylinder
 		}
 		bool isPremium() const;
 		void setPremiumDays(int32_t v);
+        bool isVip() const;
+        void setVipDays(int32_t v);
+
 
 		void setTibiaCoins(int32_t v);
 
@@ -2290,6 +2293,7 @@ class Player final : public Creature, public Cylinder
 		int32_t shopCallback = -1;
 		int32_t MessageBufferCount = 0;
 		uint32_t premiumDays = 0;
+		uint32_t vipDays = 0;
 		int32_t bloodHitCount = 0;
 		int32_t shieldBlockCount = 0;
 		int32_t offlineTrainingSkill = -1;
