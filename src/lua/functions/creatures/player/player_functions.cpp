@@ -2242,11 +2242,7 @@ int PlayerFunctions::luaPlayerGetPremiumDays(lua_State* L) {
 int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
     // player:getVipDays()
     Player* player = getUserdata<Player>(L, 1);
-    if (player) {
-        lua_pushnumber(L, player->premiumDays);
-    } else {
-        lua_pushnil(L);
-    }
+    lua_pushnumber(L, player->premiumDays);
     return 1;
 }
 
