@@ -213,6 +213,9 @@ class Account {
   error_t SetPremiumRemaningDays(uint32_t  days);
   error_t GetPremiumRemaningDays(uint32_t *days);
 
+  error_t SetVipRemaningDays(uint32_t  days);
+  error_t GetVipRemaningDays(uint32_t *days);
+
   error_t SetPremiumLastDay(time_t  last_day);
   error_t GetPremiumLastDay(time_t *last_day);
 
@@ -235,6 +238,7 @@ class Account {
   std::string email_;
   std::string password_;
   uint32_t premium_remaining_days_;
+  uint32_t vip_remaining_days_;
   time_t premium_last_day_;
   AccountType account_type_;
 };

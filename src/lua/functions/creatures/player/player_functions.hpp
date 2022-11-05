@@ -210,7 +210,6 @@ class PlayerFunctions final : LuaScriptInterface {
 			registerMethod(L, "Player", "getFamiliarLooktype", PlayerFunctions::luaPlayerGetFamiliarLooktype);
 
 			registerMethod(L, "Player", "getPremiumDays", PlayerFunctions::luaPlayerGetPremiumDays);
-            registerMethod(L, "Player", "isVip", PlayerFunctions::luaPlayerIsVip);
 			registerMethod(L, "Player", "addPremiumDays", PlayerFunctions::luaPlayerAddPremiumDays);
 			registerMethod(L, "Player", "removePremiumDays", PlayerFunctions::luaPlayerRemovePremiumDays);
 
@@ -277,6 +276,12 @@ class PlayerFunctions final : LuaScriptInterface {
 			registerMethod(L, "Player", "isOffline", PlayerFunctions::luaPlayerIsOffline);
 
 			registerMethod(L, "Player", "openMarket", PlayerFunctions::luaPlayerOpenMarket);
+
+            // Kos-OTS
+            registerMethod(L, "Player", "isVip", PlayerFunctions::luaPlayerIsVip);
+            registerMethod(L, "Player", "getVipDays", PlayerFunctions::luaPlayerGetVipDays);
+            registerMethod(L, "Player", "addVipDays", PlayerFunctions::luaPlayerAddVipDays);
+            registerMethod(L, "Player", "removeVipDays", PlayerFunctions::luaPlayerRemoveVipDays);
 
 			GroupFunctions::init(L);
 			GuildFunctions::init(L);
@@ -464,9 +469,13 @@ class PlayerFunctions final : LuaScriptInterface {
 		static int luaPlayerGetFamiliarLooktype(lua_State* L);
 
 		static int luaPlayerGetPremiumDays(lua_State* L);
-		static int luaPlayerIsVip(lua_State* L);
 		static int luaPlayerAddPremiumDays(lua_State* L);
 		static int luaPlayerRemovePremiumDays(lua_State* L);
+
+        static int luaPlayerIsVip(lua_State* L);
+        static int luaPlayerGetVipDays(lua_State* L);
+        static int luaPlayerAddVipDays(lua_State* L);
+        static int luaPlayerRemoveVipDays(lua_State* L);
 
 		static int luaPlayerGetTibiaCoins(lua_State* L);
 		static int luaPlayerAddTibiaCoins(lua_State* L);

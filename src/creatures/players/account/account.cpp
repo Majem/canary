@@ -358,6 +358,20 @@ error_t Account::GetPremiumRemaningDays(uint32_t *days) {
   return ERROR_NO;
 }
 
+    error_t Account::SetVipRemaningDays(uint32_t days) {
+        vip_remaining_days_ = days;
+        return ERROR_NO;
+    }
+
+    error_t Account::GetVipRemaningDays(uint32_t *days) {
+        if (days == nullptr) {
+            return ERROR_NULLPTR;
+        }
+
+        *days = vip_remaining_days_;
+        return ERROR_NO;
+    }
+
 error_t Account::SetPremiumLastDay(time_t last_day) {
   if (last_day < 0) {
     return ERROR_INVALID_LAST_DAY;

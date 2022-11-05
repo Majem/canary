@@ -104,6 +104,10 @@ bool IOLoginData::preloadPlayer(Player* player, const std::string& name)
   if (!g_configManager().getBoolean(FREE_PREMIUM)) {
     query << ", (SELECT `premdays` FROM `accounts` WHERE `accounts`.`id` = `account_id`) AS `premium_days`";
   }
+  //Kos ots
+    query << ", (SELECT `vipdays` FROM `accounts` WHERE `accounts`.`id` = `account_id`) AS `vip_days`";
+
+
   query << " FROM `players` WHERE `name` = " << db.escapeString(name);
   DBResult_ptr result = db.storeQuery(query.str());
   if (!result) {
@@ -129,6 +133,9 @@ bool IOLoginData::preloadPlayer(Player* player, const std::string& name)
   } else {
     player->premiumDays = std::numeric_limits<uint16_t>::max();
   }
+
+  player->vipDays = result->getNumber<uint16_t>("vip_days");
+
   return true;
 }
 
@@ -171,7 +178,7 @@ bool IOLoginData::loadPlayer(Player* player, DBResult_ptr result)
   } else {
     acc.GetPremiumRemaningDays(&(player->premiumDays));
   }
-
+    acc.GetVipRemaningDays(&(player->vipDays));
   acc.GetCoins(&(player->coinBalance));
 
   Group* group = g_game().groups.getGroup(result->getNumber<uint16_t>("group_id"));
@@ -1442,4 +1449,19 @@ void IOLoginData::removePremiumDays(uint32_t accountId, int32_t removeDays)
   std::ostringstream query;
   query << "UPDATE `accounts` SET `premdays` = `premdays` - " << removeDays << " WHERE `id` = " << accountId;
   Database::getInstance().executeQuery(query.str());
+}
+
+// Kos-OTS
+void IOLoginData::addVipDays(uint32_t accountId, int32_t addDays)
+{
+    std::ostringstream query;
+    query << "UPDATE `accounts` SET `vipdays` = `premdays` + " << addDays << " WHERE `id` = " << accountId;
+    Database::getInstance().executeQuery(query.str());
+}
+
+void IOLoginData::removeVipDays(uint32_t accountId, int32_t removeDays)
+{
+    std::ostringstream query;
+    query << "UPDATE `accounts` SET `vipdays` = `premdays` - " << removeDays << " WHERE `id` = " << accountId;
+    Database::getInstance().executeQuery(query.str());
 }

@@ -2239,13 +2239,6 @@ int PlayerFunctions::luaPlayerGetPremiumDays(lua_State* L) {
 	return 1;
 }
 
-int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
-    // player:getVipDays()
-    Player* player = getUserdata<Player>(L, 1);
-    lua_pushnumber(L, player->premiumDays);
-    return 1;
-}
-
 int PlayerFunctions::luaPlayerAddPremiumDays(lua_State* L) {
 	// player:addPremiumDays(days)
 	Player* player = getUserdata<Player>(L, 1);
@@ -3012,4 +3005,66 @@ int PlayerFunctions::luaPlayerOpenMarket(lua_State* L) {
 	player->sendMarketEnter(player->getLastDepotId());
 	pushBoolean(L, true);
 	return 1;
+}
+
+// Kos- OTS
+int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
+    // player:isVip()
+    Player* player = getUserdata<Player>(L, 1);
+
+
+    Player* player = getUserdata<Player>(L, 1);
+    if (player) {
+        bool vipIsActive = player->vipDays > 0;
+        pushBoolean(L, vipIsActive);
+    } else {
+        lua_pushnil(L);
+    }
+}
+
+int PlayerFunctions::luaPlayerGetVipDays(lua_State* L) {
+    // player:getVipDays()
+    Player* player = getUserdata<Player>(L, 1);
+    lua_pushnumber(L, player->vipDays);
+    return 1;
+}
+
+int PlayerFunctions::luaPlayerAddVipDays(lua_State* L) {
+    // player:addVipDays(days)
+    Player* player = getUserdata<Player>(L, 1);
+    if (!player) {
+        lua_pushnil(L);
+        return 1;
+    }
+
+    if (player->vip_days != std::numeric_limits<uint16_t>::max()) {
+        uint16_t days = getNumber<uint16_t>(L, 2);
+        int32_t addDays = std::min<int32_t>(0xFFFE - player->vip_days, days);
+        if (addDays > 0) {
+            player->setVipDays(player->premiumDays + addDays);
+            IOLoginData::addVipDays(player->getAccount(), addDays);
+        }
+    }
+    pushBoolean(L, true);
+    return 1;
+}
+
+int PlayerFunctions::luaPlayerRemoveVipDays(lua_State* L) {
+    // player:removeVipDays(days)
+    Player* player = getUserdata<Player>(L, 1);
+    if (!player) {
+        lua_pushnil(L);
+        return 1;
+    }
+
+    if (player->premiumDays != std::numeric_limits<uint16_t>::max()) {
+        uint16_t days = getNumber<uint16_t>(L, 2);
+        int32_t removeDays = std::min<int32_t>(player->premiumDays, days);
+        if (removeDays > 0) {
+            player->setPremiumDays(player->premiumDays - removeDays);
+            IOLoginData::removePremiumDays(player->getAccount(), removeDays);
+        }
+    }
+    pushBoolean(L, true);
+    return 1;
 }
