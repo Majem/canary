@@ -220,6 +220,7 @@ namespace account {
         this->SetAccountType(static_cast<AccountType>(result->getNumber<int32_t>("type")));
         this->SetPassword(result->getString("password"));
         this->SetPremiumRemaningDays(result->getNumber<uint16_t>("premdays"));
+        this->SetVipRemaningDays(result->getNumber<uint16_t>("vipdays"));
         this->SetPremiumLastDay(result->getNumber<time_t>("lastday"));
 
         return ERROR_NO;
