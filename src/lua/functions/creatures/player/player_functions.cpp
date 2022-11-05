@@ -3011,9 +3011,6 @@ int PlayerFunctions::luaPlayerOpenMarket(lua_State* L) {
 int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
     // player:isVip()
     Player* player = getUserdata<Player>(L, 1);
-
-
-    Player* player = getUserdata<Player>(L, 1);
     if (player) {
         bool vipIsActive = player->vipDays > 0;
         pushBoolean(L, vipIsActive);
@@ -3037,9 +3034,9 @@ int PlayerFunctions::luaPlayerAddVipDays(lua_State* L) {
         return 1;
     }
 
-    if (player->vip_days != std::numeric_limits<uint16_t>::max()) {
+    if (player->vipDays != std::numeric_limits<uint16_t>::max()) {
         uint16_t days = getNumber<uint16_t>(L, 2);
-        int32_t addDays = std::min<int32_t>(0xFFFE - player->vip_days, days);
+        int32_t addDays = std::min<int32_t>(0xFFFE - player->vipDays, days);
         if (addDays > 0) {
             player->setVipDays(player->premiumDays + addDays);
             IOLoginData::addVipDays(player->getAccount(), addDays);
