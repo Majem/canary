@@ -3014,6 +3014,9 @@ int PlayerFunctions::luaPlayerIsVip(lua_State* L) {
     if (player) {
         bool vipIsActive = player->vipDays > 0;
         SPDLOG_ERROR("{} - Liczba dni vip", player->vipDays);
+        if(vipIsActive) {
+            SPDLOG_ERROR("Aktywny");
+        }
         pushBoolean(L, vipIsActive);
     } else {
         lua_pushnil(L);
