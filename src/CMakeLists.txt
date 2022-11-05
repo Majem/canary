@@ -1,7 +1,7 @@
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-  project(canary-debug)
+  project(kosots-debug)
 else()
-  project(canary)
+  project(kosots)
 endif()
 
 # *****************************************************************************
@@ -42,7 +42,7 @@ option(BUILD_STATIC_LIBRARY "Build using static libraries" OFF)
 # Client
 # *****************************************************************************
 if (MSVC)
-  add_executable(${PROJECT_NAME} "" ../cmake/canary.rc)
+  add_executable(${PROJECT_NAME} "" ../cmake/kosots.rc)
 else()
   add_executable(${PROJECT_NAME} "")
 endif()
