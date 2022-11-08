@@ -51,7 +51,7 @@ bool EventsScheduler::loadScheduleEventFromXml() const
         attr = schedNode.attribute("weekday");
         if(attr) {
             SPDLOG_WARN(attr.as_string());
-            SPDLOG_WARN(time_out->tm_wday);
+            SPDLOG_WARN(timePtr->tm_wday);
         }else {
             int16_t year;
             int16_t day;
