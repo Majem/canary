@@ -37,6 +37,10 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 	time_t t = time(nullptr);
 	const tm* timePtr = localtime(&t);
 	int daysMath = ((timePtr->tm_year + 1900) * 365) + ((timePtr->tm_mon + 1) * 30) + (timePtr->tm_mday);
+    int weekDay = timePtr->tm_wday;
+    if(weekDay == 0) {
+        weekDay = 7;
+    }
 
 	for (auto schedNode : doc.child("events").children()) {
 		std::string ss_d;
@@ -48,10 +52,20 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 			ss << ss_d << " event";
 		}
 
-        attr = schedNode.attribute("weekday");
+        attr = schedNode.attribute("weekday_start");
         if(attr) {
-            SPDLOG_WARN(attr.as_string());
-            SPDLOG_WARN(timePtr->tm_wday);
+            if(attr.as_int() < weekDay) {
+                continue;
+            }
+
+            attr = schedNode.attribute("weekday_end");
+            if(attr) {
+                if(attr.as_int() > weekDay) {
+                    continue;
+                }
+            }
+
+            SPDLOG_WARN(ss);
         }else {
             int16_t year;
             int16_t day;
