@@ -58,6 +58,13 @@ bool EventsScheduler::loadScheduleEventFromXml() const
                 continue;
             }
 
+            attr = schedNode.attribute("weekday_end");
+            if(attr) {
+                if(attr.as_int() > weekDay) {
+                    continue;
+                }
+            }
+
         }else {
             int16_t year;
             int16_t day;
