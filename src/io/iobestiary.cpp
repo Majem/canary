@@ -217,11 +217,6 @@ void IOBestiary::addCharmPoints(Player* player, uint16_t amount, bool negative /
 		return;
 	}
 
-    uint32_t eventschedule = g_eventsScheduler().getCharmSchedule();
-    if(eventschedule > 1){
-        amount *= eventschedule;
-    }
-
 	uint32_t myCharms = player->getCharmPoints();
 	if (negative) {
 		myCharms -= amount;
