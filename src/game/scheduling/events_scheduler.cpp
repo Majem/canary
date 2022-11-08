@@ -54,11 +54,14 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 
         attr = schedNode.attribute("weekday_start");
         if(attr) {
+            SPDLOG_WARN(attr.as_string());
+            SPDLOG_WARN(weekDay);
             if(attr.as_int() < weekDay) {
                 continue;
             }
 
             attr = schedNode.attribute("weekday_end");
+            SPDLOG_WARN(attr.as_string());
             if(attr) {
                 if(attr.as_int() > weekDay) {
                     continue;
