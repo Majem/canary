@@ -60,7 +60,7 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 
 
 
-            if(attr.as_int() < weekDay) {
+            if(attr.as_int() > weekDay) {
                 continue;
             }
 
