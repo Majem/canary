@@ -51,6 +51,13 @@ class EventsScheduler
 			expSchedule = (expSchedule * exprate)/100;
 		}
 
+	    uint16_t getCharmSchedule() const {
+			return charmSchedule;
+		}
+		void setCharmSchedule(uint16_t charmrate) {
+			charmSchedule = (charmSchedule * charmrate)/100;
+		}
+
 		uint32_t getLootSchedule() const {
 			return lootSchedule;
 		}
@@ -78,6 +85,7 @@ class EventsScheduler
 		uint32_t lootSchedule = 100;
 		uint16_t skillSchedule = 100;
 		uint32_t spawnMonsterSchedule = 100;
+        uint32_t charmSchedule = 100;
 
 };
 

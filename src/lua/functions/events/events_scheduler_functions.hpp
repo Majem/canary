@@ -33,6 +33,7 @@ class EventsSchedulerFunctions final : private LuaScriptInterface {
 			registerMethod(L, "EventsScheduler", "getEventSLoot", EventsSchedulerFunctions::luaEventsSchedulergetEventSLoot);
 			registerMethod(L, "EventsScheduler", "getEventSSkill", EventsSchedulerFunctions::luaEventsSchedulergetEventSSkill);
 			registerMethod(L, "EventsScheduler", "getEventSExp", EventsSchedulerFunctions::luaEventsSchedulergetEventSExp);
+			registerMethod(L, "EventsScheduler", "getEventSCharm", EventsSchedulerFunctions::luaEventsSchedulergetEventSCharm);
 			registerMethod(L, "EventsScheduler", "getSpawnMonsterSchedule", EventsSchedulerFunctions::luaEventsSchedulergetSpawnMonsterSchedule);
 		}
 
@@ -40,6 +41,7 @@ class EventsSchedulerFunctions final : private LuaScriptInterface {
 		static int luaEventsSchedulergetEventSLoot(lua_State* L);
 		static int luaEventsSchedulergetEventSSkill(lua_State* L);
 		static int luaEventsSchedulergetEventSExp(lua_State* L);
+		static int luaEventsSchedulergetEventSCharm(lua_State* L);
 		static int luaEventsSchedulergetSpawnMonsterSchedule(lua_State* L);
 };
 

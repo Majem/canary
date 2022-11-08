@@ -25,6 +25,7 @@
 #include "creatures/monsters/monster.h"
 #include "creatures/monsters/monsters.h"
 #include "creatures/players/player.h"
+#include "game/scheduling/events_scheduler.hpp"
 
 
 bool IOBestiary::parseCharmCombat(Charm* charm, Player* player, Creature* target, int32_t realDamage)
@@ -215,6 +216,11 @@ void IOBestiary::addCharmPoints(Player* player, uint16_t amount, bool negative /
 	if (!player) {
 		return;
 	}
+
+    uint32_t eventschedule = g_eventsScheduler().getCharmSchedule();
+    if(eventschedule > 1){
+        amount *= eventschedule;
+    }
 
 	uint32_t myCharms = player->getCharmPoints();
 	if (negative) {

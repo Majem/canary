@@ -45,3 +45,9 @@ int EventsSchedulerFunctions::luaEventsSchedulergetSpawnMonsterSchedule(lua_Stat
 	lua_pushnumber(L, g_eventsScheduler().getSpawnMonsterSchedule());
 	return 1;
 }
+
+int EventsSchedulerFunctions::luaEventsSchedulergetEventSCharm(lua_State* L) {
+	// EventsScheduler.getEventSCharm
+	lua_pushnumber(L, g_eventsScheduler().getCharmSchedule());
+	return 1;
+}

@@ -48,31 +48,40 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 			ss << ss_d << " event";
 		}
 
-		int16_t year;
-		int16_t day;
-		int16_t month;
+        attr = schedNode.attribute("weekday");
+        if(attr) {
+            SPDLOG_WARN(attr.as_string());
+            SPDLOG_WARN(time_out->tm_wday);
+        }else {
+            int16_t year;
+            int16_t day;
+            int16_t month;
 
-		if (!(attr = schedNode.attribute("enddate"))) {
-			continue;
-		} else {
-			ss_d = attr.as_string();
-			sscanf(ss_d.c_str(), "%hd/%hd/%hd", &month, &day, &year);
-			daysNow = ((year * 365) + (month * 30) + day);
-			if (daysMath > daysNow) {
-				continue;
-			}
-		}
+            if (!(attr = schedNode.attribute("enddate"))) {
+                continue;
+            }
+            else {
+                ss_d = attr.as_string();
+                sscanf(ss_d.c_str(), "%hd/%hd/%hd", &month, &day, &year);
+                daysNow = ((year * 365) + (month * 30) + day);
+                if (daysMath > daysNow) {
+                    continue;
+                }
+            }
 
-		if (!(attr = schedNode.attribute("startdate"))) {
-			continue;
-		} else {
-			ss_d = attr.as_string();
-			sscanf(ss_d.c_str(), "%hd/%hd/%hd", &month, &day, &year);
-			daysNow = ((year * 365) + (month * 30) + day);
-			if (daysMath < daysNow) {
-				continue;
-			}
-		}
+            if (!(attr = schedNode.attribute("startdate"))) {
+                continue;
+            }
+            else {
+                ss_d = attr.as_string();
+                sscanf(ss_d.c_str(), "%hd/%hd/%hd", &month, &day, &year);
+                daysNow = ((year * 365) + (month * 30) + day);
+                if (daysMath < daysNow) {
+                    continue;
+                }
+            }
+        }
+
 
 		if ((attr = schedNode.attribute("script")) && (!(g_scripts().loadEventSchedulerScripts(attr.as_string())))) {
 				SPDLOG_WARN("Can not load the file '{}' on '/events/scripts/scheduler/'",
@@ -81,6 +90,12 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 		}
 
 		for (auto schedENode : schedNode.children()) {
+            if ((schedENode.attribute("charmrate"))) {
+                uint16_t charmrate = pugi::cast<uint16_t>(schedENode.attribute("charmrate").value());
+                g_eventsScheduler().setCharmSchedule(charmrate);
+                ss << " charm: " << charmrate << "%";
+            }
+
 			if ((schedENode.attribute("exprate"))) {
 				uint16_t exprate = pugi::cast<uint16_t>(schedENode.attribute("exprate").value());
 				g_eventsScheduler().setExpSchedule(exprate);
