@@ -67,13 +67,13 @@ bool EventsScheduler::loadScheduleEventFromXml() const
             attr = schedNode.attribute("weekday_end");
             debugString << "end" << attr.as_string() << " ";
             debugString << "current" << weekDay;
-            SPDLOG_WARN(debugString.str());
+
             if(attr) {
                 if(attr.as_int() > weekDay) {
                     continue;
                 }
             }
-
+            SPDLOG_WARN(debugString.str());
         }else {
             int16_t year;
             int16_t day;
