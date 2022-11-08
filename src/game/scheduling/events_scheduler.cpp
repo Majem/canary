@@ -54,26 +54,16 @@ bool EventsScheduler::loadScheduleEventFromXml() const
 
         attr = schedNode.attribute("weekday_start");
         if(attr) {
-            std::stringstream debugString;
-            debugString << "start" << attr.as_string() << " ";
-
-
-
-
             if(attr.as_int() > weekDay) {
                 continue;
             }
 
             attr = schedNode.attribute("weekday_end");
-            debugString << "end" << attr.as_string() << " ";
-            debugString << "current" << weekDay;
-
             if(attr) {
-                if(attr.as_int() < weekDay) {
+                if(attr.as_int() <= weekDay) {
                     continue;
                 }
             }
-            SPDLOG_WARN(debugString.str());
         }else {
             int16_t year;
             int16_t day;
